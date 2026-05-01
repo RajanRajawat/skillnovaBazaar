@@ -1,0 +1,1 @@
+"""SkillNova Bazaar application package."""

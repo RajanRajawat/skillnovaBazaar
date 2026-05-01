@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.tmp/
+node_modules/
+.vercel/
+App/backend/data/unknown_patterns.json
+App/backend/data/.yfinance_cache/
+*.log
+.env

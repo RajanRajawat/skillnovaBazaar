@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SkillNova Bazaar</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="./config.js"></script>
+  </head>
+  <body>
+    <section class="auth-shell" id="authView" hidden>
+      <div class="auth-layout">
+        <aside class="auth-hero">
+          <div class="brand auth-brand">
+            <span class="brand-mark"></span>
+            <div>
+              <h1>SkillNova Bazaar</h1>
+              <p>Market intelligence terminal</p>
+            </div>
+          </div>
+          <div class="auth-copy">
+            <span class="auth-kicker">Secure access</span>
+            <h2>Track the market with a private workspace.</h2>
+            <p>Sign in to unlock live analysis, detected patterns, news signals, and saved session state.</p>
+          </div>
+          <div class="auth-feature-list">
+            <div class="auth-feature-card">
+              <strong>Protected analysis</strong>
+              <span>Pattern and news routes require a valid session.</span>
+            </div>
+            <div class="auth-feature-card">
+              <strong>Fast session restore</strong>
+              <span>Returning users jump back into the terminal automatically.</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="auth-panel">
+          <div class="auth-panel-head">
+            <span class="label" id="authEyebrow">Welcome back</span>
+            <h2 id="authTitle">Login to continue</h2>
+            <p id="authSubtitle">Use your account to access the protected market dashboard.</p>
+          </div>
+
+          <nav class="auth-switch" aria-label="Authentication routes">
+            <a id="loginRouteLink" href="#/login" class="auth-switch-link">Login</a>
+            <a id="registerRouteLink" href="#/register" class="auth-switch-link">Register</a>
+          </nav>
+
+          <div id="authMessage" class="auth-message" hidden aria-live="polite"></div>
+
+          <form id="loginForm" class="auth-form" novalidate>
+            <label class="auth-field">
+              <span>Email</span>
+              <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+            </label>
+            <label class="auth-field">
+              <span>Password</span>
+              <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Minimum 8 characters" required />
+            </label>
+            <div class="auth-form-actions">
+              <a id="forgotPasswordLink" class="auth-text-link" href="#/forgot-password">Forgot password?</a>
+            </div>
+            <button id="loginSubmitButton" class="primary-action" type="submit">Login</button>
+          </form>
+
+          <form id="forgotPasswordForm" class="auth-form" novalidate hidden>
+            <label class="auth-field">
+              <span>Email</span>
+              <input id="forgotPasswordEmail" name="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+            </label>
+            <label class="auth-field">
+              <span>New Password</span>
+              <input
+                id="forgotPasswordNewPassword"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Minimum 8 characters"
+                required
+              />
+            </label>
+            <label class="auth-field">
+              <span>Confirm New Password</span>
+              <input
+                id="forgotPasswordConfirmPassword"
+                name="confirmPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Re-enter your new password"
+                required
+              />
+            </label>
+            <div class="auth-form-actions">
+              <a id="backToLoginLink" class="auth-text-link" href="#/login">Back to login</a>
+            </div>
+            <button id="forgotPasswordSubmitButton" class="primary-action" type="submit">Reset password</button>
+          </form>
+
+          <form id="registerForm" class="auth-form" novalidate hidden>
+            <label class="auth-field">
+              <span>Name</span>
+              <input id="registerName" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
+            </label>
+            <label class="auth-field">
+              <span>Email</span>
+              <input id="registerEmail" name="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+            </label>
+            <label class="auth-field">
+              <span>Password</span>
+              <input id="registerPassword" name="password" type="password" autocomplete="new-password" placeholder="Minimum 8 characters" required />
+            </label>
+            <button id="registerSubmitButton" class="primary-action" type="submit">Create account</button>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <div class="app-shell" id="appView" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <h1>SkillNova Bazaar</h1>
+            <p>Market intelligence terminal</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="search-wrap">
+            <input id="instrumentSearch" autocomplete="off" spellcheck="false" aria-label="Search NSE, BSE, futures, options" />
+            <div id="searchResults" class="search-results" hidden></div>
+          </div>
+          <div class="session-panel">
+            <div class="session-user">
+              <span class="label">Signed in</span>
+              <strong id="sessionUserName">--</strong>
+              <small id="sessionUserEmail">--</small>
+            </div>
+            <button id="logoutButton" class="session-logout" type="button">Logout</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="market-strip">
+        <div>
+          <span class="label">Instrument</span>
+          <strong id="instrumentName">NIFTY 50</strong>
+        </div>
+        <div>
+          <span class="label">Last</span>
+          <strong id="lastPrice">--</strong>
+        </div>
+        <div>
+          <span class="label">Change</span>
+          <strong id="priceChange">--</strong>
+        </div>
+        <div class="prediction-block" id="predictionBlock">
+          <span class="label">Prediction</span>
+          <strong id="predictionText">Loading</strong>
+        </div>
+      </section>
+
+      <main class="workspace">
+        <section class="chart-stage">
+          <div class="toolbar">
+            <div class="segmented" id="chartTypeControls">
+              <button data-chart-type="candlestick" class="active">Candlestick</button>
+              <button data-chart-type="bar">Bar</button>
+              <button data-chart-type="line">Line</button>
+              <button data-chart-type="area">Area</button>
+              <button data-chart-type="heikin-ashi">Heikin-Ashi</button>
+            </div>
+            <div class="selectors">
+              <div class="trendline-filter" id="trendlineFilter">
+                <button id="trendlineMenuButton" type="button" aria-expanded="false" aria-controls="trendlineMenu">
+                  <span class="level-trigger-label">Levels</span>
+                  <span class="level-trigger-count">All</span>
+                  <span class="level-trigger-chevron" aria-hidden="true"></span>
+                </button>
+                <div id="trendlineMenu" class="trendline-menu" hidden></div>
+              </div>
+              <select id="intervalSelect" aria-label="Interval">
+                <option value="1d">1D</option>
+                <option value="60m">60M</option>
+                <option value="30m">30M</option>
+                <option value="15m">15M</option>
+                <option value="5m">5M</option>
+              </select>
+              <select id="rangeSelect" aria-label="Range">
+                <option value="1mo">1M</option>
+                <option value="3mo">3M</option>
+                <option value="6mo" selected>6M</option>
+                <option value="1y">1Y</option>
+                <option value="2y">2Y</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="chart" class="chart"></div>
+
+          <section class="news-panel">
+            <div class="section-head">
+              <h2>News Signal</h2>
+              <span id="providerBadge">--</span>
+            </div>
+            <div id="newsList" class="news-list"></div>
+          </section>
+        </section>
+
+        <aside class="side-panel">
+          <div class="section-head">
+            <h2>Pattern Detection</h2>
+            <span id="updatedAt">--</span>
+          </div>
+          <div id="activePatterns" class="active-patterns"></div>
+          <div class="section-head prediction-detail-head">
+            <h2>Prediction Drivers</h2>
+          </div>
+          <div id="predictionDrivers" class="drivers"></div>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
