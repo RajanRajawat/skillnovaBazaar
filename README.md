@@ -106,7 +106,7 @@ Deploy the frontend to Vercel with `App/frontend` as the project root.
 - Vercel will pick up [`App/frontend/vercel.json`](App/frontend/vercel.json)
 - The frontend uses `http://127.0.0.1:8000/api` locally and `/api` when deployed
 - `vercel.json` rewrites `/api/*` to the Render backend so the browser can stay on the Vercel origin
-- If Render gives you a different service URL than `https://skillnova-bazaar-api.onrender.com`, update that one line in `App/frontend/vercel.json`
+- Render backend URL is `https://skillnovabazaar.onrender.com`, and `App/frontend/vercel.json` rewrites `/api/*` there
 
 Render note: `App/backend/data/unknown_patterns.json` and `.yfinance_cache` are file-backed. On Render they are ephemeral unless you add persistent storage or move that state to an external database/store.
 

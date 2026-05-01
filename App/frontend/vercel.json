@@ -15,7 +15,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://skillnova-bazaar-api.onrender.com/api/:path*"
+      "destination": "https://skillnovabazaar.onrender.com/api/:path*"
     }
   ]
 }
