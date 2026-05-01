@@ -5,10 +5,16 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .config.settings import settings
-from .routes.auth import router as auth_router
-from .routes.api import router as api_router
-from .services.auth import auth_middleware
+try:
+    from .config.settings import settings
+    from .routes.auth import router as auth_router
+    from .routes.api import router as api_router
+    from .services.auth import auth_middleware
+except ImportError:
+    from config.settings import settings
+    from routes.auth import router as auth_router
+    from routes.api import router as api_router
+    from services.auth import auth_middleware
 
 
 def create_app() -> FastAPI:
@@ -50,7 +56,8 @@ app = create_app()
 
 def main() -> None:
     print(f"SkillNova Bazaar running at http://{settings.host}:{settings.port}")
-    uvicorn.run("App.backend.app:app", host=settings.host, port=settings.port, reload=settings.debug)
+    module_name = f"{__package__}.app" if __package__ else "app"
+    uvicorn.run(f"{module_name}:app", host=settings.host, port=settings.port, reload=settings.debug)
 
 
 if __name__ == "__main__":

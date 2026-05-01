@@ -6,12 +6,20 @@ from typing import Any
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict, Field
 
-from ..models.pattern_definitions import all_patterns
-from ..services.market_data import instrument_service, market_data_service
-from ..services.auth import require_authenticated_user
-from ..services.news_service import news_service
-from ..services.pattern_detector import detector_coverage, pattern_detector, unknown_pattern_store
-from ..services.prediction_engine import prediction_engine
+try:
+    from ..models.pattern_definitions import all_patterns
+    from ..services.market_data import instrument_service, market_data_service
+    from ..services.auth import require_authenticated_user
+    from ..services.news_service import news_service
+    from ..services.pattern_detector import detector_coverage, pattern_detector, unknown_pattern_store
+    from ..services.prediction_engine import prediction_engine
+except ImportError:
+    from models.pattern_definitions import all_patterns
+    from services.market_data import instrument_service, market_data_service
+    from services.auth import require_authenticated_user
+    from services.news_service import news_service
+    from services.pattern_detector import detector_coverage, pattern_detector, unknown_pattern_store
+    from services.prediction_engine import prediction_engine
 
 
 router = APIRouter()

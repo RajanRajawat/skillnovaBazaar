@@ -5,8 +5,12 @@ from typing import Any
 
 import requests
 
-from ..config.settings import settings
-from ..models.pattern_definitions import KNOWN_PATTERN_NAMES
+try:
+    from ..config.settings import settings
+    from ..models.pattern_definitions import KNOWN_PATTERN_NAMES
+except ImportError:
+    from config.settings import settings
+    from models.pattern_definitions import KNOWN_PATTERN_NAMES
 
 
 class WebSearchService:

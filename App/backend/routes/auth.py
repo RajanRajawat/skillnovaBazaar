@@ -5,13 +5,22 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from ..services.auth import (
-    authenticate_user,
-    create_access_token,
-    register_user,
-    require_authenticated_user,
-    reset_password,
-)
+try:
+    from ..services.auth import (
+        authenticate_user,
+        create_access_token,
+        register_user,
+        require_authenticated_user,
+        reset_password,
+    )
+except ImportError:
+    from services.auth import (
+        authenticate_user,
+        create_access_token,
+        register_user,
+        require_authenticated_user,
+        reset_password,
+    )
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])

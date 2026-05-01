@@ -15,7 +15,10 @@ import pandas as pd
 import requests
 import yfinance as yf
 
-from ..config.settings import settings
+try:
+    from ..config.settings import settings
+except ImportError:
+    from config.settings import settings
 
 
 SEED_PATH = settings.data_dir / "instruments_seed.json"

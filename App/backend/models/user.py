@@ -9,7 +9,10 @@ from pymongo import ASCENDING, ReturnDocument
 from pymongo.collection import Collection
 from pymongo.errors import DuplicateKeyError
 
-from ..services.database import get_database
+try:
+    from ..services.database import get_database
+except ImportError:
+    from services.database import get_database
 
 
 @dataclass(frozen=True)

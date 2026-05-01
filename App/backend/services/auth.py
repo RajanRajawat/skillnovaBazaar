@@ -8,8 +8,12 @@ import bcrypt
 import jwt
 from fastapi import HTTPException, Request
 
-from ..config.settings import settings
-from ..models.user import User, user_store
+try:
+    from ..config.settings import settings
+    from ..models.user import User, user_store
+except ImportError:
+    from config.settings import settings
+    from models.user import User, user_store
 
 
 EMAIL_PATTERN = re.compile(r"^[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}$", re.IGNORECASE)

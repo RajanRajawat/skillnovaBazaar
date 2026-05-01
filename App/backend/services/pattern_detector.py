@@ -6,10 +6,16 @@ from typing import Any, Callable
 
 import numpy as np
 
-from ..config.settings import settings
-from ..models.pattern_definitions import PATTERN_BY_DETECTOR, PATTERN_DEFINITIONS, PatternDefinition
-from ..models.unknown_store import UnknownPatternStore
-from .web_search import web_search_service
+try:
+    from ..config.settings import settings
+    from ..models.pattern_definitions import PATTERN_BY_DETECTOR, PATTERN_DEFINITIONS, PatternDefinition
+    from ..models.unknown_store import UnknownPatternStore
+    from .web_search import web_search_service
+except ImportError:
+    from config.settings import settings
+    from models.pattern_definitions import PATTERN_BY_DETECTOR, PATTERN_DEFINITIONS, PatternDefinition
+    from models.unknown_store import UnknownPatternStore
+    from services.web_search import web_search_service
 
 
 unknown_pattern_store = UnknownPatternStore(settings.data_dir / "unknown_patterns.json")

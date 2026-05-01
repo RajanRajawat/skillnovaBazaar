@@ -4,7 +4,10 @@ from pymongo import MongoClient
 from pymongo.database import Database
 from pymongo.errors import ConfigurationError
 
-from ..config.settings import settings
+try:
+    from ..config.settings import settings
+except ImportError:
+    from config.settings import settings
 
 
 _client: MongoClient | None = None

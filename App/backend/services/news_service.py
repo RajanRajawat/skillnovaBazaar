@@ -9,7 +9,10 @@ from urllib.parse import quote_plus
 import feedparser
 import requests
 
-from ..config.settings import settings
+try:
+    from ..config.settings import settings
+except ImportError:
+    from config.settings import settings
 
 
 POSITIVE_WORDS = {
