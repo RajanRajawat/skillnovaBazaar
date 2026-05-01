@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     rootDir: .
-    buildCommand: pip install -r requirements.txt
+    buildCommand: python -m pip install --upgrade pip setuptools wheel && python -m pip install -r App/backend/requirements.txt
     startCommand: uvicorn App.backend.app:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
     envVars:
@@ -12,6 +12,8 @@ services:
         value: "3.11.11"
       - key: FASTAPI_DEBUG
         value: "false"
+      - key: CORS_ALLOW_ORIGINS
+        value: "*"
       - key: MONGO_URI
         sync: false
       - key: MONGO_DB_NAME
@@ -30,8 +32,6 @@ services:
         value: "45"
       - key: ENABLE_REMOTE_INSTRUMENT_SYNC
         value: "true"
-      - key: CORS_ALLOW_ORIGIN_REGEX
-        value: "https://.*\\.vercel\\.app"
       - key: BING_SEARCH_ENDPOINT
         value: "https://api.bing.microsoft.com/v7.0/search"
       - key: NEWSAPI_KEY
