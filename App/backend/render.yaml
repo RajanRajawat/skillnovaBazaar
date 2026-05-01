@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: skillnova-bazaar-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn App.backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: FASTAPI_DEBUG
+        value: "false"
+      - key: CORS_ALLOW_ORIGINS
+        value: "*"
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: "skillnova_bazaar"
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_ALGORITHM
+        value: "HS256"
+      - key: JWT_EXPIRATION_HOURS
+        value: "24"
+      - key: MARKET_PROVIDER
+        value: "yfinance"
+      - key: YFINANCE_TIMEOUT
+        value: "8"
+      - key: CACHE_TTL_SECONDS
+        value: "45"
+      - key: ENABLE_REMOTE_INSTRUMENT_SYNC
+        value: "true"
+      - key: BING_SEARCH_ENDPOINT
+        value: "https://api.bing.microsoft.com/v7.0/search"
+      - key: NEWSAPI_KEY
+        sync: false
+      - key: SERPAPI_KEY
+        sync: false
+      - key: BING_SEARCH_API_KEY
+        sync: false

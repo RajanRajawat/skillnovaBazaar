@@ -38,12 +38,12 @@ class Settings:
     backend_dir: Path = BACKEND_DIR
     frontend_dir: Path = FRONTEND_DIR
     data_dir: Path = DATA_DIR
-    host: str = os.getenv("HOST", "127.0.0.1")
-    port: int = int(os.getenv("PORT", "8000"))
+    host: str = "0.0.0.0"
+    port: int = 8000
     debug: bool = _bool_env("FASTAPI_DEBUG", _bool_env("APP_DEBUG", _bool_env("FLASK_DEBUG", False)))
     cors_allow_origins: tuple[str, ...] = _list_env(
         "CORS_ALLOW_ORIGINS",
-        ("http://127.0.0.1:3000", "http://localhost:3000"),
+        ("*",),
     )
     cors_allow_origin_regex: str = os.getenv("CORS_ALLOW_ORIGIN_REGEX", "")
     mongo_uri: str = os.getenv("MONGO_URI", "").strip()
