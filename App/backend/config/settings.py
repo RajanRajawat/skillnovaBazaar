@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -31,6 +32,17 @@ def _list_env(name: str, default: tuple[str, ...]) -> tuple[str, ...]:
     return values or default
 
 
+def _regex_env(name: str, default: str = "") -> str:
+    raw = (os.getenv(name) or default).strip()
+    if not raw:
+        return default
+    try:
+        re.compile(raw)
+    except re.error:
+        return default
+    return raw
+
+
 @dataclass(frozen=True)
 class Settings:
     root_dir: Path = ROOT_DIR
@@ -45,7 +57,7 @@ class Settings:
         "CORS_ALLOW_ORIGINS",
         ("*",),
     )
-    cors_allow_origin_regex: str = os.getenv("CORS_ALLOW_ORIGIN_REGEX", "")
+    cors_allow_origin_regex: str = _regex_env("CORS_ALLOW_ORIGIN_REGEX", "")
     mongo_uri: str = os.getenv("MONGO_URI", "").strip()
     mongo_db_name: str = os.getenv("MONGO_DB_NAME", "").strip()
     jwt_secret: str = os.getenv("JWT_SECRET", "").strip()
