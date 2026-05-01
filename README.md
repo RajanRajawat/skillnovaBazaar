@@ -66,8 +66,7 @@ You can also start the backend module directly:
 
 Copy `.env.example` to `.env` and fill in only the values you need.
 
-- `CORS_ALLOW_ORIGINS` should include your frontend origins.
-- `CORS_ALLOW_ORIGIN_REGEX` is useful for Vercel preview deployments such as `https://.*\.vercel\.app`.
+- `CORS_ALLOW_ORIGINS` should include your frontend origins, or `*` while you are still wiring deployment.
 - `MONGO_URI` is required for authentication and should point at your MongoDB cluster.
 - `MONGO_DB_NAME` is used when the Mongo URI does not already include a database name.
 - `JWT_SECRET` signs bearer tokens for login sessions.

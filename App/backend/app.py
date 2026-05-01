@@ -12,7 +12,6 @@ from .services.auth import auth_middleware
 
 
 def create_app() -> FastAPI:
-    allow_origin_regex = None if "*" in settings.cors_allow_origins else settings.cors_allow_origin_regex or None
     app = FastAPI(
         title="SkillNova Bazaar",
         debug=settings.debug,
@@ -23,7 +22,6 @@ def create_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(settings.cors_allow_origins),
-        allow_origin_regex=allow_origin_regex,
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],
