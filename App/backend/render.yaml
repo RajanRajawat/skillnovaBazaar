@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: skillnova-bazaar-api
+    name: skillnovaBazaar
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
